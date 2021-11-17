@@ -86,6 +86,10 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             Employee employee =  contextDB.Employees.Find(ID);
+            if(employee == null)
+            {
+                return null;
+            }
             contextDB.Entry(employee).Navigation("Role").Load();
             return employee;
         }

@@ -53,7 +53,20 @@ namespace ProjectHotel.Controllers
         [HttpGet("{ID}")]
         public BookingInfoViewModel Get(string ID)
         {
-            return mapper.Map<BookingInfoViewModel>(bookingInfoService.Get(new Guid(ID)));
+            if (ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var result = mapper.Map<BookingInfoViewModel>(bookingInfoService.Get(new Guid(ID)));
+            if(result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
         [Route("/api/GetBookingInfo/{PassportID}")]
         [HttpGet]

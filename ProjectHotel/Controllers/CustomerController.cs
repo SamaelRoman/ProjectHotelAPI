@@ -50,7 +50,20 @@ namespace ProjectHotel.Controllers
         [HttpGet("{ID}")]
         public CustomerViewModel Get(string ID)
         {
-            return mapper.Map<CustomerViewModel>(customerService.Get(new Guid(ID)));
+            if(ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var result = mapper.Map<CustomerViewModel>(customerService.Get(new Guid(ID)));
+            if(result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
         [Authorize("Administrator", "Moderator")]
         [HttpPost]

@@ -43,9 +43,21 @@ namespace ProjectHotel.Controllers
         }
         [HttpGet("{ID}")]
         public EmployeeRoleViewModel Get(string ID)
-        {
-            Guid id = new Guid(ID);
-            return mapper.Map<EmployeeRoleViewModel>(employeeRoleService.Get(id));
+        {   
+            if(ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var result = mapper.Map<EmployeeRoleViewModel>(employeeRoleService.Get(new Guid(ID)));
+            if(result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
         [HttpPost]
         public void Post([FromBody] EmployeeRoleCreateViewModel employeeRole)

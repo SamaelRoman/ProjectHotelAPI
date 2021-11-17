@@ -91,12 +91,16 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             Customer customer = contextDB.Customers.Find(ID);
+            if(customer == null)
+            {
+                return null;
+            }
             contextDB.Entry(customer).Navigation("BookingInfos").Load();
             foreach(var BI in customer.BookingInfos)
             {
                 contextDB.Entry(BI).Navigation("Room").Load();
                 contextDB.Entry(BI.Room).Navigation("Category").Load();
-                contextDB.Entry(BI.Room.Category).Collection("CategoryInfo").Load();
+                contextDB.Entry(BI.Room.Category).Collection("CategoryInfos").Load();
             }
            
             return customer;

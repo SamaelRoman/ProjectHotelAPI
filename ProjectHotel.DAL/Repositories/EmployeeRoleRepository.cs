@@ -83,6 +83,10 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             var ER = contextDB.EmployeeRoles.Find(ID);
+            if(ER == null)
+            {
+                return null;
+            }
             contextDB.Entry(ER).Collection(ER => ER.Employees).Load();
             return ER;
         }

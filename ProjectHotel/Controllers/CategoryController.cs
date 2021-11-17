@@ -50,13 +50,30 @@ namespace ProjectHotel.Controllers
         [HttpGet("{ID}")]
         public CategoryViewModel Get(string ID)
         {
-            Guid id = new Guid(ID);
-            return mapper.Map<CategoryViewModel>(categoryService.Get(id));
+            if (ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var Result =  mapper.Map<CategoryViewModel>(categoryService.Get(new Guid(ID)));
+            if(Result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+                /*throw new NullReferenceException($"Элемент с данным ID {ID} в базе данных не обнаружен");*/
+            }
+            else
+            {
+                return Result;
+            }
         }
         [Authorize("Administrator", "Moderator")]
         [HttpPost]
         public void Post([FromBody]CategoryViewModel category)
         {
+            if(category == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (ModelState.IsValid)
             {
                 categoryService.Add(mapper.Map<CategoryDTO>(category));
@@ -71,6 +88,10 @@ namespace ProjectHotel.Controllers
         [HttpPut]
         public void Put([FromBody]CategoryViewModel category)
         {
+            if (category == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (ModelState.IsValid)
             {
                 categoryService.Edit(mapper.Map<CategoryDTO>(category));

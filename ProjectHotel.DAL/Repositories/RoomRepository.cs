@@ -82,6 +82,10 @@ namespace ProjectHotel.DAL.Repositories
         public Room Get(string ID)
         {
             var room = contextDB.Rooms.Find(ID);
+            if(room == null)
+            {
+                return null;
+            }
             contextDB.Entry(room).Navigation("RoomImages").Load();
             contextDB.Entry(room).Navigation("Category").Load();
             contextDB.Entry(room.Category).Collection("CategoryInfos").Load();

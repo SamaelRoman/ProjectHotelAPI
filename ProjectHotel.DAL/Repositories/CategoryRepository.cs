@@ -103,7 +103,10 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             Category category = contextDB.Categories.Find(ID);
-
+            if(category == null)
+            {
+                return null;
+            }
             contextDB.Entry(category).Navigation("Rooms").Load();
             foreach(var R in category.Rooms)
             {

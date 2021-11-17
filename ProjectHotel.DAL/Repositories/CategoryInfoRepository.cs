@@ -85,6 +85,10 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             CategoryInfo categoryInfo = contextDB.CategoryInfos.Find(ID);
+            if(categoryInfo == null)
+            {
+                return null;
+            }
             contextDB.Entry(categoryInfo).Navigation("Category").Load();
             return categoryInfo;
         }

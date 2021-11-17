@@ -55,7 +55,20 @@ namespace ProjectHotel.Controllers
         [HttpGet("{ID}")]
         public RoomViewModel Get(string ID)
         {
-            return mapper.Map<RoomViewModel>(roomService.Get(ID));
+            if(ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var result = mapper.Map<RoomViewModel>(roomService.Get(ID));
+            if(result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                return result;
+            }
 
         }
         //api/Room/2021.11.12/2021.11.17/042951d5-61f3-45b4-96a0-f67a0fd13248 or api/Room/2021.11.12/2021.11.17/

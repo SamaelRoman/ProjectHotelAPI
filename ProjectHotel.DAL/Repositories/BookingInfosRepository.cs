@@ -101,6 +101,10 @@ namespace ProjectHotel.DAL.Repositories
                 throw new ArgumentNullException();
             }
             BookingInfo bookingInfo = contextDB.BookingInfos.Find(ID);
+            if(bookingInfo == null)
+            {
+                return null;
+            }
             contextDB.Entry(bookingInfo).Navigation("Customer").Load();
             contextDB.Entry(bookingInfo).Navigation("Room").Load();
             contextDB.Entry(bookingInfo.Room).Navigation("Category").Load();

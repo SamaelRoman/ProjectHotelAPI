@@ -46,8 +46,20 @@ namespace ProjectHotel.Controllers
         [HttpGet("{ID}")]
         public EmployeeViewModel Get(string ID)
         {
-            Guid id = new Guid(ID);
-            return mapper.Map<EmployeeViewModel>(employeeService.Get(id));
+            if(ID == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var result = mapper.Map<EmployeeViewModel>(employeeService.Get(new Guid(ID)));
+            if(result == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
 
         [HttpPost]
