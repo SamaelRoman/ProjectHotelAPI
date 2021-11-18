@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjectHotel.BLL.Interfaces;
@@ -15,10 +16,13 @@ namespace ProjectHotel.Helpers
     {
         public RequestDelegate Next { get; set; }
         private string Key;
-        public AuthMiddelware(RequestDelegate Next,IConfiguration configuration)
+        public AuthMiddelware(RequestDelegate Next,IWebHostEnvironment env)
         {
+            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).AddEnvironmentVariables();
+            var Configuration = builder.Build();
             this.Next = Next;
-            this.Key = configuration.GetSection("SecurityJWTKey").Value;
+            this.Key = Configuration.GetSection("SecurityJWTKey").Value;
            
         }
 

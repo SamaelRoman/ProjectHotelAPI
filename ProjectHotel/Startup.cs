@@ -20,9 +20,11 @@ namespace ProjectHotel
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -31,8 +33,7 @@ namespace ProjectHotel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddScoped<IUnitOfWork, EFUnitOfWork>(ServiceProvider =>
-            {
+            services.AddScoped<IUnitOfWork, EFUnitOfWork>(ServiceProvider =>{ 
                 return new EFUnitOfWork(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IEmployeeService,EmployeeService>();
