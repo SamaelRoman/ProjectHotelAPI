@@ -21,7 +21,7 @@ namespace ProjectHotel.DAL.Entities
         /// </summary>
         [Display(Name = "Фотографии номера")]
         [InverseProperty("Room")]
-        public virtual ICollection<RoomImage> RoomImages { get; set; }
+        public ICollection<RoomImage> RoomImages { get; set; }
         /// <summary>
         /// Категория номера.
         /// </summary>
@@ -31,7 +31,7 @@ namespace ProjectHotel.DAL.Entities
         /// <summary>
         /// Список объектов класса BookingIfo содержащих информацию о бронировании номера (Кем забронирован, на какую дату, и тд).
         /// </summary>
-        public virtual ICollection<BookingInfo> BookingInfos { get; set; }
+        public ICollection<BookingInfo> BookingInfos { get; set; }
         /// <summary>
         /// Вычесляемое свойство. Возвращает ответ есть ли активные брони на данный номер.В случае наличия брони возвращает true!
         /// </summary>

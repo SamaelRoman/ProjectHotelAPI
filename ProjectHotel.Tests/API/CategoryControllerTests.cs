@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net;
-using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using ProjectHotel.ViewModels;
 
 namespace ProjectHotel.Tests.API
 {
@@ -26,9 +28,16 @@ namespace ProjectHotel.Tests.API
             _client = server.CreateClient();
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",Token);           
         }
+        private void IsAuth(HttpStatusCode responseCode)
+        {
+            if (responseCode == HttpStatusCode.Unauthorized)
+            {
+                Output.WriteLine("Прошу прощения за неудобство, поменяйте пожулуйста токен!(");
+            }
+        }
         [Theory]
         [InlineData("GET")]
-        public async Task CategoryGetAllTest(string Method)
+        public async Task Category_Get_AllTest(string Method)
         {
             //Arrange
             var requste = new HttpRequestMessage(new HttpMethod(Method), "/api/Category");
@@ -37,8 +46,47 @@ namespace ProjectHotel.Tests.API
             var response = await _client.SendAsync(requste);
 
             //Assert
+            IsAuth(response.StatusCode);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
+        }
+        [Theory]
+        [InlineData("GET")]
+        public async Task Category_GetByID_Test(string Method)
+        {
+            //Arrange
+            string ID = "8e57e414-bb4b-4eb6-a9c1-cd71b9f1bc15"; //exist ID
+            var requste = new HttpRequestMessage(new HttpMethod(Method),$"/api/Category/{ID}");
+
+            //Act
+            var response = await _client.SendAsync(requste);
+
+            //Assert
+            IsAuth(response.StatusCode);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var TResult = response.Content.ReadAsStringAsync();
+            var Result = TResult.Result;
+
+            var Category = JsonSerializer.Deserialize<CategoryViewModel>(Result);
+
+            Assert.NotNull(Category);
+
+        }
+        [Theory]
+        [InlineData("GET")]
+        public async Task Category_GetByNotExistID_Test(string Method)
+        {
+            //Arrange
+            string ID = "8e57e414-bb4b-4eb6-a9c1-cd71b9f11215"; //not exist ID
+            var requste = new HttpRequestMessage(new HttpMethod(Method), $"/api/Category/{ID}");
+
+            //Act
+            var response = await _client.SendAsync(requste);
+
+            //Assert
+            IsAuth(response.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }

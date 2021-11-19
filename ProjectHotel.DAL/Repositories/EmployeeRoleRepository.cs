@@ -5,6 +5,7 @@ using ProjectHotel.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -94,6 +95,15 @@ namespace ProjectHotel.DAL.Repositories
         public IEnumerable<EmployeeRole> Get()
         {
             return contextDB.EmployeeRoles.Include(ER=>ER.Employees);
+            //List<EmployeeRole> employeeRoles = await contextDB.EmployeeRoles.ToListAsync();
+            //if(employeeRoles != null || employeeRoles.Count != 0)
+            //{
+            //    foreach (var ER in employeeRoles)
+            //    {
+            //        contextDB.Entry(ER).Collection(ER => ER.Employees).Load();
+            //    }
+            //}
+            //return employeeRoles;
         }
     }
 }

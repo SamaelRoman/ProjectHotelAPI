@@ -5,6 +5,7 @@ using ProjectHotel.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -115,6 +116,18 @@ namespace ProjectHotel.DAL.Repositories
         public IEnumerable<BookingInfo> Get()
         {
             return contextDB.BookingInfos.Include(BI => BI.Customer).Include(BI => BI.Room).ThenInclude(R=>R.Category).ThenInclude(C=>C.CategoryInfos);
+            //List<BookingInfo> bookingInfos = await contextDB.BookingInfos.ToListAsync();
+            //if(bookingInfos != null || bookingInfos.Count != 0)
+            //{
+            //    foreach (var B in bookingInfos)
+            //    {
+            //        contextDB.Entry(B).Navigation("Customer").Load();
+            //        contextDB.Entry(B).Navigation("Room").Load();
+            //        contextDB.Entry(B.Room).Navigation("Category").Load();
+            //        contextDB.Entry(B.Room.Category).Collection("CategoryInfos").Load();
+            //    }
+            //}
+            //return bookingInfos;
         }
     }
 }

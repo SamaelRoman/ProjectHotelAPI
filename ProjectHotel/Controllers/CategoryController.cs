@@ -40,7 +40,7 @@ namespace ProjectHotel.Controllers
         {
             this.categoryService = categoryService;
         }
-        [Authorize("Administrator", "Moderator")]
+        //[Authorize("Administrator", "Moderator")]
         [HttpGet]
         public IEnumerable<CategoryViewModel> Get()
         {

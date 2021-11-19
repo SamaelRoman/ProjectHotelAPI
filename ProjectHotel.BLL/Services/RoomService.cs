@@ -131,20 +131,8 @@ namespace ProjectHotel.BLL.Services
             {
                 throw new Exception("Дата начала бронирвоания и дата окончания бронирования не могут совпадать!");
             }
-            IEnumerable<RoomDTO> AllRooms = new List<RoomDTO>();
-            if (CategoryID == null)
-            {
-                AllRooms = Get();
-            }
-            else
-            {
-                if(DataBase.Categories.Get(new Guid(CategoryID)) == null)
-                {
-                    throw new Exception($"По данному ID {CategoryID} категории не найденно!");
-                }
-                AllRooms = Get().Where(R=>R.CategoryID == new Guid(CategoryID));
-            }
-
+            List<RoomDTO> AllRooms = new List<RoomDTO>();
+            AllRooms = (List<RoomDTO>)Get();
             List<RoomDTO> AvailableRooms = new List<RoomDTO>();
 
             foreach (var Room in AllRooms)
@@ -165,11 +153,22 @@ namespace ProjectHotel.BLL.Services
                     AvailableRooms.Add(Room);
                 }
             }
-            if (AvailableRooms == null || AvailableRooms.Count == 0)
+
+            List<RoomDTO> Result = null;
+            if (CategoryID != null)
+            {
+                Result = AvailableRooms.Where(R => R.CategoryID == new Guid(CategoryID)).ToList();
+            }
+            else
+            {
+                Result = AvailableRooms;
+            }
+
+            if (Result == null || Result.Count == 0)
             {
                 throw new Exception("На указанный промежуток времени свободных номеров нет!");
             }
-            return AvailableRooms;
+            return Result;
         }
     }
 }

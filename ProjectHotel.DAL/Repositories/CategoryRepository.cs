@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -119,6 +120,21 @@ namespace ProjectHotel.DAL.Repositories
         public IEnumerable<Category> Get()
         {
             return contextDB.Categories.Include(C => C.CategoryInfos).Include(C => C.Rooms).ThenInclude(R=>R.RoomImages);
+            //List<Category> categories = await contextDB.Categories.ToListAsync();
+
+            //if(categories != null || categories.Count != 0)
+            //{
+            //    foreach (var C in categories)
+            //    {
+            //        contextDB.Entry(C).Navigation("Rooms").Load();
+            //        foreach (var R in C.Rooms)
+            //        {
+            //            contextDB.Entry(R).Collection("RoomImages").Load();
+            //        }
+            //        contextDB.Entry(C).Navigation("CategoryInfos").Load();
+            //    }
+            //}
+            //return categories;
         }
     }
 }

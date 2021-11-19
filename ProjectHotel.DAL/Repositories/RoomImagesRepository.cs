@@ -5,6 +5,7 @@ using ProjectHotel.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -91,6 +92,15 @@ namespace ProjectHotel.DAL.Repositories
         public IEnumerable<RoomImage> Get()
         {
             return contextDB.RoomImages.Include(RI => RI.Room);
+            //List<RoomImage> roomImages = await contextDB.RoomImages.ToListAsync();
+            //if(roomImages != null || roomImages.Count != 0)
+            //{
+            //    foreach (var RI in roomImages)
+            //    {
+            //        contextDB.Entry(RI).Navigation("Room").Load();
+            //    }
+            //}
+            //return roomImages;
         }
     }
 }

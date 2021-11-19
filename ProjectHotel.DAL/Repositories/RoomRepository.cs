@@ -5,6 +5,7 @@ using ProjectHotel.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -95,7 +96,9 @@ namespace ProjectHotel.DAL.Repositories
 
         public IEnumerable<Room> Get()
         {
-            return contextDB.Rooms.Include(R => R.RoomImages).Include(R=>R.Category).ThenInclude(C=>C.CategoryInfos).Include(R => R.BookingInfos);
+            var result = contextDB.Rooms.Include(R=>R.BookingInfos).Include(R=>R.RoomImages).Include(R=>R.Category).ThenInclude(C=>C.CategoryInfos);
+            return result;
+          
         }
     }
 }

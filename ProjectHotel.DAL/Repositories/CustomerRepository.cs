@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectHotel.DAL.Repositories
 {
@@ -109,6 +110,21 @@ namespace ProjectHotel.DAL.Repositories
         public IEnumerable<Customer> Get()
         {
             return contextDB.Customers.Include(C => C.BookingInfos).ThenInclude(BI=>BI.Room).ThenInclude(R=>R.Category).ThenInclude(C=>C.CategoryInfos);
+            //List<Customer> customers = await contextDB.Customers.ToListAsync();
+            //if(customers != null || customers.Count != 0)
+            //{
+            //    foreach (var C in customers)
+            //    {
+            //        contextDB.Entry(C).Navigation("BookingInfos").Load();
+            //        foreach (var BI in C.BookingInfos)
+            //        {
+            //            contextDB.Entry(BI).Navigation("Room").Load();
+            //            contextDB.Entry(BI.Room).Navigation("Category").Load();
+            //            contextDB.Entry(BI.Room.Category).Collection("CategoryInfos").Load();
+            //        }
+            //    }
+            //}
+            //return customers;
         }
     }
 }

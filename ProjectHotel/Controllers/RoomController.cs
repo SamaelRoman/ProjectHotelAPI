@@ -75,7 +75,17 @@ namespace ProjectHotel.Controllers
         [HttpGet("{Start}/{End}/{CategoryID?}")]
         public IEnumerable<AvaiableRoomViewModel> Get(DateTime Start, DateTime End, string CategoryID)
         {
-            return mapper.Map<IEnumerable<AvaiableRoomViewModel>>(roomService.GetAvailableRoomsByDate(Start, End, CategoryID));
+           var Result = mapper.Map<IEnumerable<AvaiableRoomViewModel>>(roomService.GetAvailableRoomsByDate(Start, End, CategoryID));
+           if (Result.Count() == 0 || Result == null)
+           {
+               Response.StatusCode = 404;
+               return null;
+           }
+           else
+           {
+               Response.StatusCode = 200;
+               return Result;
+           }
         }
 
         [Authorize("Administrator", "Moderator")]
