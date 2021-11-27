@@ -32,7 +32,7 @@ namespace ProjectHotel.Helpers
             else
             {
                 this.Roles = Roles;
-            }
+            } 
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {

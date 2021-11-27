@@ -47,7 +47,6 @@ namespace ProjectHotel.ViewModels
         /// <summary>
         /// Категория номера.
         /// </summary>
-        [JsonIgnore]
         public CategoryViewModel Category { get; set; }
         public Guid CategoryID { get; set; }
         /// <summary>

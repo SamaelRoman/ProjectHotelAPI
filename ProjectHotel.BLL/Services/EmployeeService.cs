@@ -61,7 +61,7 @@ namespace ProjectHotel.BLL.Services
         {
             try
             {
-                employee.Password = HashPasword.CreateHashPassword(employee.Password, Configuration.GetSection("PswdHashKey").Value);
+                //employee.Password = HashPasword.CreateHashPassword(employee.Password, Configuration.GetSection("PswdHashKey").Value);
                 DataBase.Employees.Edit(mapper.Map<Employee>(employee));
                 DataBase.SaveChanges();
             }

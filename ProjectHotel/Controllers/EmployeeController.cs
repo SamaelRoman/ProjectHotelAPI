@@ -76,7 +76,7 @@ namespace ProjectHotel.Controllers
             }
         }
         [HttpPut]
-        public void Put([FromBody] EmployeeRegistrationViewModel employee)
+        public void Put([FromBody] EmployeeViewModel employee)
         {
             if (ModelState.IsValid)
             {

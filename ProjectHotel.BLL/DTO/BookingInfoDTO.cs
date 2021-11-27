@@ -55,14 +55,5 @@ namespace ProjectHotel.BLL.DTO
         {
             this.ID = Guid.NewGuid();
         }
-        public void GetTotalPrice()
-        {
-            decimal result = 0;
-            for (int i = 0; i < NumberOfDays; i++)
-            {
-                result += Room.Category.CategoryInfos.First(CI => CI.PriceAtTheMomentStart <= StartBooking.AddDays(i) && (CI.PriceAtTheMomentEnd >= StartBooking.AddDays(i) || CI.PriceAtTheMomentEnd == null)).Price;
-            }
-            this.TotalPrice = result;
-        }
     }
 }

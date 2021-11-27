@@ -170,5 +170,30 @@ namespace ProjectHotel.BLL.Services
             }
             return Result;
         }
+
+        public decimal? GetTotalPriceForRoom(string ID, DateTime Start, DateTime End)
+        {
+
+            if(ID != null && Start != null && End != null)
+            {
+                int NumberOfDays = (End - Start).Days;
+                decimal result = 0;
+                var CurrentRoom = Get(ID);
+                if(CurrentRoom == null)
+                {
+                    throw new ArgumentException();
+                }
+                for (int i = 0; i <= NumberOfDays; i++)
+                {
+                    result += CurrentRoom.Category.CategoryInfos.First(CI => CI.PriceAtTheMomentStart <= Start.AddDays(i) && (CI.PriceAtTheMomentEnd >= Start.AddDays(i) || CI.PriceAtTheMomentEnd == null)).Price;
+                }
+                return result;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            
+        }
     }
 }

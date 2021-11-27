@@ -64,7 +64,6 @@ namespace ProjectHotel.DAL.Repositories
                 if (CurrentEntity != null)
                 {
                     CurrentEntity.Login = entity.Login;
-                    CurrentEntity.Password = entity.Password;
                     CurrentEntity.Email = entity.Email;
                     CurrentEntity.EmployeeRoleID = entity.EmployeeRoleID;
                     contextDB.Employees.Update(CurrentEntity);

@@ -14,5 +14,6 @@ namespace ProjectHotel.BLL.Interfaces
         public void Delete(string ID);
         public List<RoomDTO> GetAvailableRoomsByDate(DateTime Start, DateTime End, string CategoryID = null);
         public bool GetAbailableState(DateTime Start, DateTime End, string RoomID);
+        public decimal? GetTotalPriceForRoom(string ID, DateTime Start, DateTime End);
     }
 }

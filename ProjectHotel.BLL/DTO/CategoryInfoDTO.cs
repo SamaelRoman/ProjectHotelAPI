@@ -24,7 +24,7 @@ namespace ProjectHotel.BLL.DTO
         /// Начальная дата с которой будет применятся данный ценник.
         /// </summary>
         [Required]
-        public DateTime PriceAtTheMomentStart { get; }
+        public DateTime PriceAtTheMomentStart { get; set; }
         /// <summary>
         /// Конечная дата по которую будут применятся данный ценник.
         /// </summary>
@@ -41,7 +41,6 @@ namespace ProjectHotel.BLL.DTO
         public CategoryInfoDTO()
         {
             this.ID = Guid.NewGuid();
-            PriceAtTheMomentStart = DateTime.Now;
             PriceAtTheMomentEnd = null;
         }
     }

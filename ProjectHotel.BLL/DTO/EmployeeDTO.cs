@@ -17,7 +17,7 @@ namespace ProjectHotel.BLL.DTO
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
+       
         [DataType(DataType.Password)]
         [MinLength(10,ErrorMessage = "Минимальная длина пароля 10 символов!")]
 

@@ -87,7 +87,20 @@ namespace ProjectHotel.Controllers
                return Result;
            }
         }
-
+        [Route("/GetTotalPrice/{Start}/{End}/{RoomID}")]
+        [HttpGet]
+        public decimal? Get(string RoomID, DateTime Start, DateTime End)
+        {
+            try
+            {
+                return roomService.GetTotalPriceForRoom(RoomID, Start, End);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return null;
+            }
+        }
         [Authorize("Administrator", "Moderator")]
         [HttpPost]
         public void Post([FromBody] RoomViewModel room)

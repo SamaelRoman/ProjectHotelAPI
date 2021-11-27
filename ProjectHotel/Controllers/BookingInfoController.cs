@@ -101,8 +101,7 @@ namespace ProjectHotel.Controllers
             {
                 Response.StatusCode = 400;
             }
-        }
-        [Authorize("Administrator", "Moderator")]
+        }      
         [HttpDelete("{ID}")]
         public void Delete(string ID)
         {

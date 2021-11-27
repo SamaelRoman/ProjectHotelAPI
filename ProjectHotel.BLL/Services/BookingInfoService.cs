@@ -55,7 +55,7 @@ namespace ProjectHotel.BLL.Services
             try
             {
                 bookingInfo.Room = mapper.Map<RoomDTO>(DataBase.Rooms.Get(bookingInfo.RoomID));
-                bookingInfo.GetTotalPrice();
+                bookingInfo.TotalPrice = (decimal)roomService.GetTotalPriceForRoom(bookingInfo.RoomID, bookingInfo.StartBooking, bookingInfo.EndBooking);
                 bookingInfo.Room = null;
                 DataBase.BookingInfoes.Add(mapper.Map<BookingInfo>(bookingInfo));
                 DataBase.SaveChanges();
@@ -85,8 +85,7 @@ namespace ProjectHotel.BLL.Services
             {
                 
                 bookingInfo.Room = mapper.Map<RoomDTO>(DataBase.Rooms.Get(bookingInfo.RoomID));
-                
-                bookingInfo.GetTotalPrice();
+                bookingInfo.TotalPrice = (decimal)roomService.GetTotalPriceForRoom(bookingInfo.RoomID, bookingInfo.StartBooking, bookingInfo.EndBooking);
                 bookingInfo.Room = null;
                 DataBase.BookingInfoes.Edit(mapper.Map<BookingInfo>(bookingInfo));
                 DataBase.SaveChanges();

@@ -53,7 +53,7 @@ namespace ProjectHotel.ViewModels
         /// Итоговая цена.
         /// </summary>
         [DataType(DataType.Currency)]
-        public decimal TotalPrice { get; private set; }
+        public decimal TotalPrice { get; set; }
         public BookingInfoViewModel()
         {
             this.ID = Guid.NewGuid();

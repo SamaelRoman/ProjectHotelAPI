@@ -17,7 +17,7 @@ namespace ProjectHotel.ViewModels
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
+        
         [DataType(DataType.Password)]
         [MinLength(10,ErrorMessage = "Минимальная длина пароля 10 символов!")]
         public string Password { get; set; }
